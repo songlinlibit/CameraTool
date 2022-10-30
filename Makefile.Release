@@ -159,7 +159,7 @@ $(LIBS)
 <<
 
 qmake: FORCE
-	@$(QMAKE) -o Makefile.Release CameraViewer.pro -spec win32-msvc "CONFIG+=debug" "CONFIG+=qml_debug"
+	@$(QMAKE) -o Makefile.Release CameraViewer.pro -spec win32-msvc "CONFIG+=debug" "CONFIG+=qml_debug" "CONFIG-=qtquickcompiler"
 
 qmake_all: FORCE
 
@@ -327,7 +327,7 @@ release\moc_camerabutton.cpp: camerabutton.h \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtGui\qicon.h \
 		release\moc_predefs.h \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\bin\moc.exe
-	D:\203_qt_6\6.2.4\msvc2019_64\bin\moc.exe $(DEFINES) --compiler-flavor=msvc --include D:/204_qt_proj/proj6/CameraViewer/release/moc_predefs.h -ID:/203_qt_6/6.2.4/msvc2019_64/mkspecs/win32-msvc -ID:/204_qt_proj/proj6/CameraViewer -ID:/204_qt_proj/proj6/CameraViewer/VimbaCPP -ID:/203_qt_6/6.2.4/msvc2019_64/include -ID:/203_qt_6/6.2.4/msvc2019_64/include/QtWidgets -ID:/203_qt_6/6.2.4/msvc2019_64/include/QtGui -ID:/203_qt_6/6.2.4/msvc2019_64/include/QtCore -IG:\Vs\VC\Tools\MSVC\14.33.31629\include -IG:\Vs\VC\Tools\MSVC\14.33.31629\ATLMFC\include -IG:\Vs\VC\Auxiliary\VS\include -I"D:\Windows Kits\10\include\10.0.19041.0\ucrt" -I"D:\Windows Kits\10\\include\10.0.19041.0\\um" -I"D:\Windows Kits\10\\include\10.0.19041.0\\shared" -I"D:\Windows Kits\10\\include\10.0.19041.0\\winrt" -I"D:\Windows Kits\10\\include\10.0.19041.0\\cppwinrt" -I"C:\Program Files (x86)\Windows Kits\NETFXSDK\4.6.1\include\um" camerabutton.h -o release\moc_camerabutton.cpp
+	D:\203_qt_6\6.2.4\msvc2019_64\bin\moc.exe $(DEFINES) --compiler-flavor=msvc --include D:/204_qt_proj/proj8/CameraViewer/release/moc_predefs.h -ID:/203_qt_6/6.2.4/msvc2019_64/mkspecs/win32-msvc -ID:/204_qt_proj/proj8/CameraViewer -ID:/204_qt_proj/proj8/CameraViewer/VimbaCPP -ID:/203_qt_6/6.2.4/msvc2019_64/include -ID:/203_qt_6/6.2.4/msvc2019_64/include/QtWidgets -ID:/203_qt_6/6.2.4/msvc2019_64/include/QtGui -ID:/203_qt_6/6.2.4/msvc2019_64/include/QtCore -IG:\Vs\VC\Tools\MSVC\14.33.31629\include -IG:\Vs\VC\Tools\MSVC\14.33.31629\ATLMFC\include -IG:\Vs\VC\Auxiliary\VS\include -I"D:\Windows Kits\10\include\10.0.19041.0\ucrt" -I"D:\Windows Kits\10\\include\10.0.19041.0\\um" -I"D:\Windows Kits\10\\include\10.0.19041.0\\shared" -I"D:\Windows Kits\10\\include\10.0.19041.0\\winrt" -I"D:\Windows Kits\10\\include\10.0.19041.0\\cppwinrt" -I"C:\Program Files (x86)\Windows Kits\NETFXSDK\4.6.1\include\um" camerabutton.h -o release\moc_camerabutton.cpp
 
 release\moc_cameramanager.cpp: cameramanager.h \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\QObject \
@@ -459,7 +459,7 @@ release\moc_cameramanager.cpp: cameramanager.h \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qshareddata_impl.h \
 		release\moc_predefs.h \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\bin\moc.exe
-	D:\203_qt_6\6.2.4\msvc2019_64\bin\moc.exe $(DEFINES) --compiler-flavor=msvc --include D:/204_qt_proj/proj6/CameraViewer/release/moc_predefs.h -ID:/203_qt_6/6.2.4/msvc2019_64/mkspecs/win32-msvc -ID:/204_qt_proj/proj6/CameraViewer -ID:/204_qt_proj/proj6/CameraViewer/VimbaCPP -ID:/203_qt_6/6.2.4/msvc2019_64/include -ID:/203_qt_6/6.2.4/msvc2019_64/include/QtWidgets -ID:/203_qt_6/6.2.4/msvc2019_64/include/QtGui -ID:/203_qt_6/6.2.4/msvc2019_64/include/QtCore -IG:\Vs\VC\Tools\MSVC\14.33.31629\include -IG:\Vs\VC\Tools\MSVC\14.33.31629\ATLMFC\include -IG:\Vs\VC\Auxiliary\VS\include -I"D:\Windows Kits\10\include\10.0.19041.0\ucrt" -I"D:\Windows Kits\10\\include\10.0.19041.0\\um" -I"D:\Windows Kits\10\\include\10.0.19041.0\\shared" -I"D:\Windows Kits\10\\include\10.0.19041.0\\winrt" -I"D:\Windows Kits\10\\include\10.0.19041.0\\cppwinrt" -I"C:\Program Files (x86)\Windows Kits\NETFXSDK\4.6.1\include\um" cameramanager.h -o release\moc_cameramanager.cpp
+	D:\203_qt_6\6.2.4\msvc2019_64\bin\moc.exe $(DEFINES) --compiler-flavor=msvc --include D:/204_qt_proj/proj8/CameraViewer/release/moc_predefs.h -ID:/203_qt_6/6.2.4/msvc2019_64/mkspecs/win32-msvc -ID:/204_qt_proj/proj8/CameraViewer -ID:/204_qt_proj/proj8/CameraViewer/VimbaCPP -ID:/203_qt_6/6.2.4/msvc2019_64/include -ID:/203_qt_6/6.2.4/msvc2019_64/include/QtWidgets -ID:/203_qt_6/6.2.4/msvc2019_64/include/QtGui -ID:/203_qt_6/6.2.4/msvc2019_64/include/QtCore -IG:\Vs\VC\Tools\MSVC\14.33.31629\include -IG:\Vs\VC\Tools\MSVC\14.33.31629\ATLMFC\include -IG:\Vs\VC\Auxiliary\VS\include -I"D:\Windows Kits\10\include\10.0.19041.0\ucrt" -I"D:\Windows Kits\10\\include\10.0.19041.0\\um" -I"D:\Windows Kits\10\\include\10.0.19041.0\\shared" -I"D:\Windows Kits\10\\include\10.0.19041.0\\winrt" -I"D:\Windows Kits\10\\include\10.0.19041.0\\cppwinrt" -I"C:\Program Files (x86)\Windows Kits\NETFXSDK\4.6.1\include\um" cameramanager.h -o release\moc_cameramanager.cpp
 
 release\moc_cameraobserver.cpp: cameraobserver.h \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\QObject \
@@ -562,7 +562,7 @@ release\moc_cameraobserver.cpp: cameraobserver.h \
 		VimbaCPP\Include\VimbaSystem.hpp \
 		release\moc_predefs.h \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\bin\moc.exe
-	D:\203_qt_6\6.2.4\msvc2019_64\bin\moc.exe $(DEFINES) --compiler-flavor=msvc --include D:/204_qt_proj/proj6/CameraViewer/release/moc_predefs.h -ID:/203_qt_6/6.2.4/msvc2019_64/mkspecs/win32-msvc -ID:/204_qt_proj/proj6/CameraViewer -ID:/204_qt_proj/proj6/CameraViewer/VimbaCPP -ID:/203_qt_6/6.2.4/msvc2019_64/include -ID:/203_qt_6/6.2.4/msvc2019_64/include/QtWidgets -ID:/203_qt_6/6.2.4/msvc2019_64/include/QtGui -ID:/203_qt_6/6.2.4/msvc2019_64/include/QtCore -IG:\Vs\VC\Tools\MSVC\14.33.31629\include -IG:\Vs\VC\Tools\MSVC\14.33.31629\ATLMFC\include -IG:\Vs\VC\Auxiliary\VS\include -I"D:\Windows Kits\10\include\10.0.19041.0\ucrt" -I"D:\Windows Kits\10\\include\10.0.19041.0\\um" -I"D:\Windows Kits\10\\include\10.0.19041.0\\shared" -I"D:\Windows Kits\10\\include\10.0.19041.0\\winrt" -I"D:\Windows Kits\10\\include\10.0.19041.0\\cppwinrt" -I"C:\Program Files (x86)\Windows Kits\NETFXSDK\4.6.1\include\um" cameraobserver.h -o release\moc_cameraobserver.cpp
+	D:\203_qt_6\6.2.4\msvc2019_64\bin\moc.exe $(DEFINES) --compiler-flavor=msvc --include D:/204_qt_proj/proj8/CameraViewer/release/moc_predefs.h -ID:/203_qt_6/6.2.4/msvc2019_64/mkspecs/win32-msvc -ID:/204_qt_proj/proj8/CameraViewer -ID:/204_qt_proj/proj8/CameraViewer/VimbaCPP -ID:/203_qt_6/6.2.4/msvc2019_64/include -ID:/203_qt_6/6.2.4/msvc2019_64/include/QtWidgets -ID:/203_qt_6/6.2.4/msvc2019_64/include/QtGui -ID:/203_qt_6/6.2.4/msvc2019_64/include/QtCore -IG:\Vs\VC\Tools\MSVC\14.33.31629\include -IG:\Vs\VC\Tools\MSVC\14.33.31629\ATLMFC\include -IG:\Vs\VC\Auxiliary\VS\include -I"D:\Windows Kits\10\include\10.0.19041.0\ucrt" -I"D:\Windows Kits\10\\include\10.0.19041.0\\um" -I"D:\Windows Kits\10\\include\10.0.19041.0\\shared" -I"D:\Windows Kits\10\\include\10.0.19041.0\\winrt" -I"D:\Windows Kits\10\\include\10.0.19041.0\\cppwinrt" -I"C:\Program Files (x86)\Windows Kits\NETFXSDK\4.6.1\include\um" cameraobserver.h -o release\moc_cameraobserver.cpp
 
 release\moc_frameobserver.cpp: frameobserver.h \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\QObject \
@@ -666,7 +666,7 @@ release\moc_frameobserver.cpp: frameobserver.h \
 		VimbaCPP\Include\VimbaSystem.hpp \
 		release\moc_predefs.h \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\bin\moc.exe
-	D:\203_qt_6\6.2.4\msvc2019_64\bin\moc.exe $(DEFINES) --compiler-flavor=msvc --include D:/204_qt_proj/proj6/CameraViewer/release/moc_predefs.h -ID:/203_qt_6/6.2.4/msvc2019_64/mkspecs/win32-msvc -ID:/204_qt_proj/proj6/CameraViewer -ID:/204_qt_proj/proj6/CameraViewer/VimbaCPP -ID:/203_qt_6/6.2.4/msvc2019_64/include -ID:/203_qt_6/6.2.4/msvc2019_64/include/QtWidgets -ID:/203_qt_6/6.2.4/msvc2019_64/include/QtGui -ID:/203_qt_6/6.2.4/msvc2019_64/include/QtCore -IG:\Vs\VC\Tools\MSVC\14.33.31629\include -IG:\Vs\VC\Tools\MSVC\14.33.31629\ATLMFC\include -IG:\Vs\VC\Auxiliary\VS\include -I"D:\Windows Kits\10\include\10.0.19041.0\ucrt" -I"D:\Windows Kits\10\\include\10.0.19041.0\\um" -I"D:\Windows Kits\10\\include\10.0.19041.0\\shared" -I"D:\Windows Kits\10\\include\10.0.19041.0\\winrt" -I"D:\Windows Kits\10\\include\10.0.19041.0\\cppwinrt" -I"C:\Program Files (x86)\Windows Kits\NETFXSDK\4.6.1\include\um" frameobserver.h -o release\moc_frameobserver.cpp
+	D:\203_qt_6\6.2.4\msvc2019_64\bin\moc.exe $(DEFINES) --compiler-flavor=msvc --include D:/204_qt_proj/proj8/CameraViewer/release/moc_predefs.h -ID:/203_qt_6/6.2.4/msvc2019_64/mkspecs/win32-msvc -ID:/204_qt_proj/proj8/CameraViewer -ID:/204_qt_proj/proj8/CameraViewer/VimbaCPP -ID:/203_qt_6/6.2.4/msvc2019_64/include -ID:/203_qt_6/6.2.4/msvc2019_64/include/QtWidgets -ID:/203_qt_6/6.2.4/msvc2019_64/include/QtGui -ID:/203_qt_6/6.2.4/msvc2019_64/include/QtCore -IG:\Vs\VC\Tools\MSVC\14.33.31629\include -IG:\Vs\VC\Tools\MSVC\14.33.31629\ATLMFC\include -IG:\Vs\VC\Auxiliary\VS\include -I"D:\Windows Kits\10\include\10.0.19041.0\ucrt" -I"D:\Windows Kits\10\\include\10.0.19041.0\\um" -I"D:\Windows Kits\10\\include\10.0.19041.0\\shared" -I"D:\Windows Kits\10\\include\10.0.19041.0\\winrt" -I"D:\Windows Kits\10\\include\10.0.19041.0\\cppwinrt" -I"C:\Program Files (x86)\Windows Kits\NETFXSDK\4.6.1\include\um" frameobserver.h -o release\moc_frameobserver.cpp
 
 release\moc_imageprocessthread.cpp: imageprocessthread.h \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\QThread \
@@ -800,7 +800,7 @@ release\moc_imageprocessthread.cpp: imageprocessthread.h \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qshareddata_impl.h \
 		release\moc_predefs.h \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\bin\moc.exe
-	D:\203_qt_6\6.2.4\msvc2019_64\bin\moc.exe $(DEFINES) --compiler-flavor=msvc --include D:/204_qt_proj/proj6/CameraViewer/release/moc_predefs.h -ID:/203_qt_6/6.2.4/msvc2019_64/mkspecs/win32-msvc -ID:/204_qt_proj/proj6/CameraViewer -ID:/204_qt_proj/proj6/CameraViewer/VimbaCPP -ID:/203_qt_6/6.2.4/msvc2019_64/include -ID:/203_qt_6/6.2.4/msvc2019_64/include/QtWidgets -ID:/203_qt_6/6.2.4/msvc2019_64/include/QtGui -ID:/203_qt_6/6.2.4/msvc2019_64/include/QtCore -IG:\Vs\VC\Tools\MSVC\14.33.31629\include -IG:\Vs\VC\Tools\MSVC\14.33.31629\ATLMFC\include -IG:\Vs\VC\Auxiliary\VS\include -I"D:\Windows Kits\10\include\10.0.19041.0\ucrt" -I"D:\Windows Kits\10\\include\10.0.19041.0\\um" -I"D:\Windows Kits\10\\include\10.0.19041.0\\shared" -I"D:\Windows Kits\10\\include\10.0.19041.0\\winrt" -I"D:\Windows Kits\10\\include\10.0.19041.0\\cppwinrt" -I"C:\Program Files (x86)\Windows Kits\NETFXSDK\4.6.1\include\um" imageprocessthread.h -o release\moc_imageprocessthread.cpp
+	D:\203_qt_6\6.2.4\msvc2019_64\bin\moc.exe $(DEFINES) --compiler-flavor=msvc --include D:/204_qt_proj/proj8/CameraViewer/release/moc_predefs.h -ID:/203_qt_6/6.2.4/msvc2019_64/mkspecs/win32-msvc -ID:/204_qt_proj/proj8/CameraViewer -ID:/204_qt_proj/proj8/CameraViewer/VimbaCPP -ID:/203_qt_6/6.2.4/msvc2019_64/include -ID:/203_qt_6/6.2.4/msvc2019_64/include/QtWidgets -ID:/203_qt_6/6.2.4/msvc2019_64/include/QtGui -ID:/203_qt_6/6.2.4/msvc2019_64/include/QtCore -IG:\Vs\VC\Tools\MSVC\14.33.31629\include -IG:\Vs\VC\Tools\MSVC\14.33.31629\ATLMFC\include -IG:\Vs\VC\Auxiliary\VS\include -I"D:\Windows Kits\10\include\10.0.19041.0\ucrt" -I"D:\Windows Kits\10\\include\10.0.19041.0\\um" -I"D:\Windows Kits\10\\include\10.0.19041.0\\shared" -I"D:\Windows Kits\10\\include\10.0.19041.0\\winrt" -I"D:\Windows Kits\10\\include\10.0.19041.0\\cppwinrt" -I"C:\Program Files (x86)\Windows Kits\NETFXSDK\4.6.1\include\um" imageprocessthread.h -o release\moc_imageprocessthread.cpp
 
 release\moc_mainwindow.cpp: mainwindow.h \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtWidgets\QMainWindow \
@@ -969,7 +969,7 @@ release\moc_mainwindow.cpp: mainwindow.h \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\QStringList \
 		release\moc_predefs.h \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\bin\moc.exe
-	D:\203_qt_6\6.2.4\msvc2019_64\bin\moc.exe $(DEFINES) --compiler-flavor=msvc --include D:/204_qt_proj/proj6/CameraViewer/release/moc_predefs.h -ID:/203_qt_6/6.2.4/msvc2019_64/mkspecs/win32-msvc -ID:/204_qt_proj/proj6/CameraViewer -ID:/204_qt_proj/proj6/CameraViewer/VimbaCPP -ID:/203_qt_6/6.2.4/msvc2019_64/include -ID:/203_qt_6/6.2.4/msvc2019_64/include/QtWidgets -ID:/203_qt_6/6.2.4/msvc2019_64/include/QtGui -ID:/203_qt_6/6.2.4/msvc2019_64/include/QtCore -IG:\Vs\VC\Tools\MSVC\14.33.31629\include -IG:\Vs\VC\Tools\MSVC\14.33.31629\ATLMFC\include -IG:\Vs\VC\Auxiliary\VS\include -I"D:\Windows Kits\10\include\10.0.19041.0\ucrt" -I"D:\Windows Kits\10\\include\10.0.19041.0\\um" -I"D:\Windows Kits\10\\include\10.0.19041.0\\shared" -I"D:\Windows Kits\10\\include\10.0.19041.0\\winrt" -I"D:\Windows Kits\10\\include\10.0.19041.0\\cppwinrt" -I"C:\Program Files (x86)\Windows Kits\NETFXSDK\4.6.1\include\um" mainwindow.h -o release\moc_mainwindow.cpp
+	D:\203_qt_6\6.2.4\msvc2019_64\bin\moc.exe $(DEFINES) --compiler-flavor=msvc --include D:/204_qt_proj/proj8/CameraViewer/release/moc_predefs.h -ID:/203_qt_6/6.2.4/msvc2019_64/mkspecs/win32-msvc -ID:/204_qt_proj/proj8/CameraViewer -ID:/204_qt_proj/proj8/CameraViewer/VimbaCPP -ID:/203_qt_6/6.2.4/msvc2019_64/include -ID:/203_qt_6/6.2.4/msvc2019_64/include/QtWidgets -ID:/203_qt_6/6.2.4/msvc2019_64/include/QtGui -ID:/203_qt_6/6.2.4/msvc2019_64/include/QtCore -IG:\Vs\VC\Tools\MSVC\14.33.31629\include -IG:\Vs\VC\Tools\MSVC\14.33.31629\ATLMFC\include -IG:\Vs\VC\Auxiliary\VS\include -I"D:\Windows Kits\10\include\10.0.19041.0\ucrt" -I"D:\Windows Kits\10\\include\10.0.19041.0\\um" -I"D:\Windows Kits\10\\include\10.0.19041.0\\shared" -I"D:\Windows Kits\10\\include\10.0.19041.0\\winrt" -I"D:\Windows Kits\10\\include\10.0.19041.0\\cppwinrt" -I"C:\Program Files (x86)\Windows Kits\NETFXSDK\4.6.1\include\um" mainwindow.h -o release\moc_mainwindow.cpp
 
 release\moc_previewlabel.cpp: previewlabel.h \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtGui\qevent.h \
@@ -1102,9 +1102,11 @@ release\moc_previewlabel.cpp: previewlabel.h \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtGui\qbitmap.h \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtGui\qpicture.h \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtGui\qtextdocument.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtWidgets\QDialog \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtWidgets\qdialog.h \
 		release\moc_predefs.h \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\bin\moc.exe
-	D:\203_qt_6\6.2.4\msvc2019_64\bin\moc.exe $(DEFINES) --compiler-flavor=msvc --include D:/204_qt_proj/proj6/CameraViewer/release/moc_predefs.h -ID:/203_qt_6/6.2.4/msvc2019_64/mkspecs/win32-msvc -ID:/204_qt_proj/proj6/CameraViewer -ID:/204_qt_proj/proj6/CameraViewer/VimbaCPP -ID:/203_qt_6/6.2.4/msvc2019_64/include -ID:/203_qt_6/6.2.4/msvc2019_64/include/QtWidgets -ID:/203_qt_6/6.2.4/msvc2019_64/include/QtGui -ID:/203_qt_6/6.2.4/msvc2019_64/include/QtCore -IG:\Vs\VC\Tools\MSVC\14.33.31629\include -IG:\Vs\VC\Tools\MSVC\14.33.31629\ATLMFC\include -IG:\Vs\VC\Auxiliary\VS\include -I"D:\Windows Kits\10\include\10.0.19041.0\ucrt" -I"D:\Windows Kits\10\\include\10.0.19041.0\\um" -I"D:\Windows Kits\10\\include\10.0.19041.0\\shared" -I"D:\Windows Kits\10\\include\10.0.19041.0\\winrt" -I"D:\Windows Kits\10\\include\10.0.19041.0\\cppwinrt" -I"C:\Program Files (x86)\Windows Kits\NETFXSDK\4.6.1\include\um" previewlabel.h -o release\moc_previewlabel.cpp
+	D:\203_qt_6\6.2.4\msvc2019_64\bin\moc.exe $(DEFINES) --compiler-flavor=msvc --include D:/204_qt_proj/proj8/CameraViewer/release/moc_predefs.h -ID:/203_qt_6/6.2.4/msvc2019_64/mkspecs/win32-msvc -ID:/204_qt_proj/proj8/CameraViewer -ID:/204_qt_proj/proj8/CameraViewer/VimbaCPP -ID:/203_qt_6/6.2.4/msvc2019_64/include -ID:/203_qt_6/6.2.4/msvc2019_64/include/QtWidgets -ID:/203_qt_6/6.2.4/msvc2019_64/include/QtGui -ID:/203_qt_6/6.2.4/msvc2019_64/include/QtCore -IG:\Vs\VC\Tools\MSVC\14.33.31629\include -IG:\Vs\VC\Tools\MSVC\14.33.31629\ATLMFC\include -IG:\Vs\VC\Auxiliary\VS\include -I"D:\Windows Kits\10\include\10.0.19041.0\ucrt" -I"D:\Windows Kits\10\\include\10.0.19041.0\\um" -I"D:\Windows Kits\10\\include\10.0.19041.0\\shared" -I"D:\Windows Kits\10\\include\10.0.19041.0\\winrt" -I"D:\Windows Kits\10\\include\10.0.19041.0\\cppwinrt" -I"C:\Program Files (x86)\Windows Kits\NETFXSDK\4.6.1\include\um" previewlabel.h -o release\moc_previewlabel.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
@@ -1375,7 +1377,9 @@ ui_mainwindow.h: mainwindow.ui \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtGui\qcursor.h \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtGui\qbitmap.h \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtGui\qpicture.h \
-		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtGui\qtextdocument.h
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtGui\qtextdocument.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtWidgets\QDialog \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtWidgets\qdialog.h
 	D:\203_qt_6\6.2.4\msvc2019_64\bin\uic.exe mainwindow.ui -o ui_mainwindow.h
 
 compiler_yacc_decl_make_all:
@@ -1855,7 +1859,19 @@ release\cameraobserver.obj: cameraobserver.cpp cameraobserver.h \
 		VimbaCPP\Include\ICameraFactory.h \
 		VimbaCPP\Include\ICameraListObserver.h \
 		VimbaCPP\Include\IInterfaceListObserver.h \
-		VimbaCPP\Include\VimbaSystem.hpp
+		VimbaCPP\Include\VimbaSystem.hpp \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\QDebug \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qdebug.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qhash.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qmap.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qshareddata.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qshareddata_impl.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qtextstream.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qstringconverter.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qset.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qcontiguouscache.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qsharedpointer.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qsharedpointer_impl.h
 
 release\frameobserver.obj: frameobserver.cpp frameobserver.h \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\QObject \
@@ -2464,6 +2480,8 @@ release\mainwindow.obj: mainwindow.cpp mainwindow.h \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtWidgets\qframe.h \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtGui\qpicture.h \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtGui\qtextdocument.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtWidgets\QDialog \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtWidgets\qdialog.h \
 		ui_mainwindow.h \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\QVariant \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtGui\QAction \
@@ -2532,7 +2550,6 @@ release\mainwindow.obj: mainwindow.cpp mainwindow.h \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qfileinfo.h \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qdatetime.h \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qcalendar.h \
-		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtWidgets\qdialog.h \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\QFile \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\QThread \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtWidgets\QInputDialog \
@@ -2671,6 +2688,8 @@ release\previewlabel.obj: previewlabel.cpp previewlabel.h \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtGui\qbitmap.h \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtGui\qpicture.h \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtGui\qtextdocument.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtWidgets\QDialog \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtWidgets\qdialog.h \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtGui\QPaintEvent \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtGui\QPainter \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtGui\qpainter.h \

@@ -296,8 +296,9 @@ void cameraManager::on_adjustFormat(int code,QString r)
         {
             format = VmbPixelFormatMono16;
         }
-        auto error=  feature->SetValue(format);
-        if (!error) qDebug()<<"error when setting pixelformat:"<<error;
+        auto error =  feature->SetValue(format);
+        if (VmbErrorSuccess != error) qDebug()<<"error when setting pixelformat:"<<error;
+        else qDebug()<<"set format :"<< r << "success!";
       }
       else if(code==2)
       {
@@ -320,8 +321,8 @@ void cameraManager::on_adjustFormat(int code,QString r)
             format = VmbPixelFormatMono16;
         }
         auto error=  feature->SetValue(format);
-        qDebug()<<"error when setting pixelformat:"<<error;
-        if (!error) qDebug()<<"error when setting pixelformat:"<<error;
+        if (VmbErrorSuccess != error) qDebug()<<"error when setting pixelformat:"<<error;
+        else qDebug()<<"set format :"<< r << "success!";
       }
 }
 
