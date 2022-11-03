@@ -14,13 +14,10 @@ public:
 
     virtual void FrameReceived( const AVT::VmbAPI::FramePtr pFrame );
 
-
     AVT::VmbAPI::FramePtr GetFrame();
+    void ClearFrameQueue();
 
-
-        void ClearFrameQueue();
-
-      private:
+private:
 
         std::queue<AVT::VmbAPI::FramePtr> m_Frames;
         std::mutex m_FramesMutex;
@@ -33,10 +30,6 @@ public:
         //  [out]   status          The frame receive status
         //
         void FrameReceivedSignal( int status );
-
-signals:
-
-
 };
 
 #endif // FRAMEOBSERVER_H

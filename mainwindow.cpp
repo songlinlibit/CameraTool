@@ -4,18 +4,18 @@
 #include "previewlabel.h"
 #include "qpixmap.h"
 #include "ui_mainwindow.h"
-#include<QFileDialog>
-#include<QFile>
-#include<QThread>
-#include<QInputDialog>
-#include<QMessageBox>
+#include <QFileDialog>
+#include <QFile>
+#include <QThread>
+// #include <QImageReader>
+#include <QInputDialog>
+#include <QMessageBox>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
     QPixmap p;
     p.load("D:\\204_qt_proj\\proj7\\CameraViewer\\test.bmp");
     qDebug()<<"p"<<p.isNull();
@@ -74,6 +74,11 @@ MainWindow::MainWindow(QWidget *parent)
 
     initCameraInfos();
     ui->comboBox_3->setEditable(true);
+
+    for ( int i = 0; i < 256; ++i )
+    {
+        m_ColorTable.push_back( QColor( i, i, i ).rgb() );
+    }
 }
 
 MainWindow::~MainWindow()
@@ -111,30 +116,110 @@ void MainWindow::initCameraInfos()
     ui->comboBox_3->addItems(cameras);
 }
 
-
 void MainWindow::on_pushButton_3_clicked()
 {
     // if(!this->manager->cameraOneRunning)
     // {
     //     return;
     // }
-    bool saved = false;
-    QImage tmp=(ui->preview_2->frame.toImage());
-    QString savePath=filePath_1;
-    QString time=QDateTime::currentDateTime().toString("mm-hh-dd-MM");
-    //QString time=QDateTime::currentDateTime().toString();
-    time.replace(" ","");
-    savePath.append("/"+time+".png");
-    qDebug()<<"savePath:  "<<savePath;
-    saved = tmp.save(savePath);
-    if ( true == saved )
+    // make a copy of the images before save-as dialog appears (image can change during time dialog open)
+    QImage      image = (ui->preview_2->frame.toImage());
+    // tFrameInfo  imageFullBitdepth = m_FullBitDepthImage;
+    QString     fileExtension = QString(".jpeg;;.jpg;;.png;;.tif;;.tiff");
+    bool        isImageAvailable = true;
+
+    if ( image.isNull() )
     {
-        QMessageBox::information( this, tr( "提示" ), tr( "Image: " ) + savePath + tr( " saved successfully" ));
+        isImageAvailable = false;
     }
     else
     {
-        QMessageBox::warning( this, tr( "错误" ), tr( "Error saving image" ));
+        /* Get all inputformats */
+        // unsigned int nFilterSize = QImageReader::supportedImageFormats().count();
+        // for (int i = nFilterSize-1; i >= 0; i--)
+        // {
+        //     fileExtension += "."; /* Insert wildcard */
+        //     fileExtension += QString(QImageReader::supportedImageFormats().at(i)).toLower(); /* Insert the format */
+        //     if(0 != i)
+        //         fileExtension += ";;"; /* Insert a space */
+        // }
+
+        //  if( NULL != m_saveFileDialog )
+        //  {
+        //      delete m_saveFileDialog;
+        //      m_saveFileDialog = NULL;
+        //  }
+
+        auto m_saveFileDialog = new QFileDialog ( this, tr("Save Image"), QString(), fileExtension );
+        qDebug()<<"extension : "<<fileExtension;
+        m_saveFileDialog->setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint & ~Qt::WindowMinimizeButtonHint & ~Qt::WindowMaximizeButtonHint);
+        m_saveFileDialog->setAcceptMode(QFileDialog::AcceptSave);
+
+        if(m_saveFileDialog->exec())
+        {   //OK
+           auto m_SelectedExtension = m_saveFileDialog->selectedNameFilter();
+           QStringList files = m_saveFileDialog->selectedFiles();
+
+           if(!files.isEmpty())
+           {
+                QString fileName = files.at(0);
+
+                if(!fileName.endsWith(m_SelectedExtension))
+                {
+                    fileName.append(m_SelectedExtension);
+                }
+
+                bool saved = false;
+
+                // save image using LibTiff library for 16 Bit
+                // if( m_LibTiffAvailable && ActionAllow16BitTiffSaving->isChecked() && m_SelectedExtension.contains(".tif") && isSupportedPixelFormat())
+                // {
+                //     saved = m_TiffWriter.WriteTiff(imageFullBitdepth, fileName.toAscii());
+                // }
+                // use default QImage save functionality
+                // else
+                // {
+                    // if( true == CanReduceBpp() )
+                    // {
+                    //     saved = ReduceBpp( image ).save( fileName );
+                    // }
+                    // else
+                    // {
+                        saved = image.convertToFormat(QImage::Format_Indexed8, m_ColorTable).save( fileName );
+                    // }
+                // }
+
+                if ( true == saved )
+                {
+                    QMessageBox::information( this, tr( "Vimba Viewer" ), tr( "Image: " ) + fileName + tr( " saved successfully" ));
+                }
+                else
+                {
+                    QMessageBox::warning( this, tr( "Vimba Viewer" ), tr( "Error saving image" ));
+                }
+
+            }
+        }
+        delete m_saveFileDialog;
     }
+
+    // bool saved = false;
+    // QImage tmp=(ui->preview_2->frame.toImage());
+    // QString savePath=filePath_1;
+    // QString time=QDateTime::currentDateTime().toString("mm-hh-dd-MM");
+    // //QString time=QDateTime::currentDateTime().toString();
+    // time.replace(" ","");
+    // savePath.append("/"+time+".png");
+    // qDebug()<<"savePath:  "<<savePath;
+    // saved = tmp.save(savePath);
+    // if ( true == saved )
+    // {
+    //     QMessageBox::information( this, tr( "提示" ), tr( "Image: " ) + savePath + tr( " saved successfully" ));
+    // }
+    // else
+    // {
+    //     QMessageBox::warning( this, tr( "错误" ), tr( "Error saving image" ));
+    // }
 }
 
 

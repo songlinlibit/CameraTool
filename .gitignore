@@ -1,0 +1,6 @@
+.qtc_clangd/
+.vscode/
+debug/
+defaultBuf/
+release/
+

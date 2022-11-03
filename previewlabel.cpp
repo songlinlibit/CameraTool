@@ -50,11 +50,11 @@ void previewLabel::getGrayValue(){
     if(y_in_Img == -1 || x_in_Img == -1){
         return;
     }
-//    qDebug()<<"depth = "<< QString("depth : %1").arg(frame.depth());
+    qDebug()<<"frame.depth = "<< QString("depth : %1").arg(frame.depth());
     QPixmap tempPix = frame.copy(x_in_Img, y_in_Img, 1, 1);    // 获取坐标值位置处的像素图
-//    qDebug()<<"depth = "<< QString("depth : %1").arg(tempPix.depth());
+    qDebug()<<"tempPix.depth = "<< QString("depth : %1").arg(tempPix.depth());
     QImage imageBits = tempPix.toImage();
-//    qDebug()<<QString("imageBits.format() : %1").arg(imageBits.format());
+    qDebug()<<QString("imageBits.format() : %1").arg(imageBits.format());
     if(imageBits.isNull() == false) {
         if(imageBits.allGray() == true) {    //  判断是否为灰度图
               grayValue = imageBits.bits();    //  获取灰度值

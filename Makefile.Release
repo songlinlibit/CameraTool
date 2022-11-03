@@ -50,7 +50,9 @@ OBJECTS_DIR   = release
 
 ####### Files
 
-SOURCES       = camerabutton.cpp \
+SOURCES       = Helper.cpp \
+		ImageWriter.cpp \
+		camerabutton.cpp \
 		camerainfo.cpp \
 		cameramanager.cpp \
 		cameraobserver.cpp \
@@ -65,7 +67,9 @@ SOURCES       = camerabutton.cpp \
 		release\moc_imageprocessthread.cpp \
 		release\moc_mainwindow.cpp \
 		release\moc_previewlabel.cpp
-OBJECTS       = release\camerabutton.obj \
+OBJECTS       = release\Helper.obj \
+		release\ImageWriter.obj \
+		release\camerabutton.obj \
 		release\camerainfo.obj \
 		release\cameramanager.obj \
 		release\cameraobserver.obj \
@@ -82,14 +86,19 @@ OBJECTS       = release\camerabutton.obj \
 		release\moc_mainwindow.obj \
 		release\moc_previewlabel.obj
 
-DIST          =  camerabutton.h \
+DIST          =  Helper.h \
+		ImageWriter.h \
+		camerabutton.h \
 		camerainfo.h \
 		cameramanager.h \
 		cameraobserver.h \
 		frameobserver.h \
 		imageprocessthread.h \
 		mainwindow.h \
-		previewlabel.h camerabutton.cpp \
+		memcpy_threaded.h \
+		previewlabel.h Helper.cpp \
+		ImageWriter.cpp \
+		camerabutton.cpp \
 		camerainfo.cpp \
 		cameramanager.cpp \
 		cameraobserver.cpp \
@@ -154,7 +163,7 @@ all: Makefile.Release  release\CameraViewer.exe
 
 release\CameraViewer.exe: D:\203_qt_6\6.2.4\msvc2019_64\lib\Qt6Widgets.lib D:\203_qt_6\6.2.4\msvc2019_64\lib\Qt6Gui.lib D:\203_qt_6\6.2.4\msvc2019_64\lib\Qt6Core.lib ui_mainwindow.h $(OBJECTS) 
 	$(LINKER) $(LFLAGS) /MANIFEST:embed /OUT:$(DESTDIR_TARGET) @<<
-release\camerabutton.obj release\camerainfo.obj release\cameramanager.obj release\cameraobserver.obj release\frameobserver.obj release\imageprocessthread.obj release\main.obj release\mainwindow.obj release\previewlabel.obj release\moc_camerabutton.obj release\moc_cameramanager.obj release\moc_cameraobserver.obj release\moc_frameobserver.obj release\moc_imageprocessthread.obj release\moc_mainwindow.obj release\moc_previewlabel.obj
+release\Helper.obj release\ImageWriter.obj release\camerabutton.obj release\camerainfo.obj release\cameramanager.obj release\cameraobserver.obj release\frameobserver.obj release\imageprocessthread.obj release\main.obj release\mainwindow.obj release\previewlabel.obj release\moc_camerabutton.obj release\moc_cameramanager.obj release\moc_cameraobserver.obj release\moc_frameobserver.obj release\moc_imageprocessthread.obj release\moc_mainwindow.obj release\moc_previewlabel.obj
 $(LIBS)
 <<
 
@@ -164,10 +173,10 @@ qmake: FORCE
 qmake_all: FORCE
 
 dist:
-	$(ZIP) CameraViewer.zip $(SOURCES) $(DIST) CameraViewer.pro ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\features\spec_pre.prf ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\common\windows-desktop.conf ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\features\win32\windows_vulkan_sdk.prf ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\common\windows-vulkan.conf ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\common\msvc-desktop.conf ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\qconfig.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_ext_freetype.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_ext_libpng.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_concurrent.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_concurrent_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_core.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_core5compat.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_core5compat_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_core_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_dbus.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_dbus_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_designer.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_designer_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_designercomponents_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_devicediscovery_support_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_entrypoint_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_fb_support_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_gui.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_gui_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_help.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_help_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_labsanimation.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_labsanimation_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_labsfolderlistmodel.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_labsfolderlistmodel_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_labsqmlmodels.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_labsqmlmodels_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_labssettings.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_labssettings_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_labssharedimage.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_labssharedimage_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_labswavefrontmesh.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_labswavefrontmesh_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_linguist.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_linguist_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_network.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_network_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_opengl.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_opengl_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_openglwidgets.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_openglwidgets_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_packetprotocol_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_printsupport.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_printsupport_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_qml.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_qml_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_qmlcompiler_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_qmlcore.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_qmlcore_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_qmldebug_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_qmldevtools_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_qmldom_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_qmllocalstorage.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_qmllocalstorage_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_qmlmodels.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_qmlmodels_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_qmltest.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_qmltest_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_qmlworkerscript.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_qmlworkerscript_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_qmlxmllistmodel.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_qmlxmllistmodel_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_quick.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_quick_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_quickcontrols2.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_quickcontrols2_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_quickcontrols2impl.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_quickcontrols2impl_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_quickcontrolstestutilsprivate_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_quickdialogs2.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_quickdialogs2_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_quickdialogs2quickimpl.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_quickdialogs2quickimpl_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_quickdialogs2utils.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_quickdialogs2utils_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_quicklayouts.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_quicklayouts_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_quickparticles_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_quickshapes_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_quicktemplates2.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_quicktemplates2_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_quicktestutilsprivate_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_quickwidgets.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_quickwidgets_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_sql.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_sql_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_svg.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_svg_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_svgwidgets.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_svgwidgets_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_testlib.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_testlib_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_tools_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_uiplugin.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_uitools.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_uitools_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_widgets.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_widgets_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_xml.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_xml_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_zlib_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\features\qt_functions.prf ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\features\qt_config.prf ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\win32-msvc\qmake.conf ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\features\spec_post.prf .qmake.stash ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\features\exclusive_builds.prf ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\common\msvc-version.conf ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\features\toolchain.prf ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\features\default_pre.prf ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\features\win32\default_pre.prf ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\features\resolve_config.prf ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\features\exclusive_builds_post.prf ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\features\default_post.prf ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\features\build_pass.prf ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\features\win32\console.prf ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\features\qml_debug.prf ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\features\entrypoint.prf ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\features\precompile_header.prf ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\features\warn_on.prf ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\features\qt.prf ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\features\resources_functions.prf ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\features\resources.prf ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\features\moc.prf ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\features\win32\opengl.prf ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\features\uic.prf ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\features\qmake_use.prf ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\features\file_copies.prf ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\features\testcase_targets.prf ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\features\exceptions.prf ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\features\yacc.prf ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\features\lex.prf CameraViewer.pro ..\..\..\203_qt_6\6.2.4\msvc2019_64\lib\Qt6Widgets.prl ..\..\..\203_qt_6\6.2.4\msvc2019_64\lib\Qt6Gui.prl ..\..\..\203_qt_6\6.2.4\msvc2019_64\lib\Qt6Core.prl    ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\features\data\dummy.cpp camerabutton.h camerainfo.h cameramanager.h cameraobserver.h frameobserver.h imageprocessthread.h mainwindow.h previewlabel.h  camerabutton.cpp camerainfo.cpp cameramanager.cpp cameraobserver.cpp frameobserver.cpp imageprocessthread.cpp main.cpp mainwindow.cpp previewlabel.cpp mainwindow.ui    
+	$(ZIP) CameraViewer.zip $(SOURCES) $(DIST) CameraViewer.pro ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\features\spec_pre.prf ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\common\windows-desktop.conf ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\features\win32\windows_vulkan_sdk.prf ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\common\windows-vulkan.conf ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\common\msvc-desktop.conf ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\qconfig.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_ext_freetype.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_ext_libpng.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_concurrent.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_concurrent_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_core.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_core5compat.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_core5compat_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_core_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_dbus.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_dbus_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_designer.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_designer_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_designercomponents_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_devicediscovery_support_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_entrypoint_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_fb_support_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_gui.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_gui_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_help.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_help_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_labsanimation.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_labsanimation_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_labsfolderlistmodel.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_labsfolderlistmodel_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_labsqmlmodels.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_labsqmlmodels_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_labssettings.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_labssettings_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_labssharedimage.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_labssharedimage_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_labswavefrontmesh.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_labswavefrontmesh_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_linguist.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_linguist_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_network.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_network_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_opengl.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_opengl_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_openglwidgets.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_openglwidgets_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_packetprotocol_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_printsupport.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_printsupport_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_qml.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_qml_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_qmlcompiler_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_qmlcore.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_qmlcore_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_qmldebug_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_qmldevtools_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_qmldom_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_qmllocalstorage.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_qmllocalstorage_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_qmlmodels.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_qmlmodels_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_qmltest.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_qmltest_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_qmlworkerscript.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_qmlworkerscript_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_qmlxmllistmodel.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_qmlxmllistmodel_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_quick.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_quick_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_quickcontrols2.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_quickcontrols2_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_quickcontrols2impl.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_quickcontrols2impl_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_quickcontrolstestutilsprivate_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_quickdialogs2.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_quickdialogs2_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_quickdialogs2quickimpl.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_quickdialogs2quickimpl_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_quickdialogs2utils.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_quickdialogs2utils_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_quicklayouts.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_quicklayouts_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_quickparticles_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_quickshapes_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_quicktemplates2.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_quicktemplates2_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_quicktestutilsprivate_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_quickwidgets.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_quickwidgets_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_sql.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_sql_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_svg.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_svg_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_svgwidgets.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_svgwidgets_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_testlib.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_testlib_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_tools_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_uiplugin.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_uitools.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_uitools_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_widgets.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_widgets_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_xml.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_xml_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\modules\qt_lib_zlib_private.pri ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\features\qt_functions.prf ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\features\qt_config.prf ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\win32-msvc\qmake.conf ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\features\spec_post.prf .qmake.stash ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\features\exclusive_builds.prf ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\common\msvc-version.conf ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\features\toolchain.prf ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\features\default_pre.prf ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\features\win32\default_pre.prf ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\features\resolve_config.prf ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\features\exclusive_builds_post.prf ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\features\default_post.prf ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\features\build_pass.prf ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\features\win32\console.prf ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\features\qml_debug.prf ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\features\entrypoint.prf ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\features\precompile_header.prf ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\features\warn_on.prf ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\features\qt.prf ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\features\resources_functions.prf ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\features\resources.prf ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\features\moc.prf ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\features\win32\opengl.prf ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\features\uic.prf ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\features\qmake_use.prf ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\features\file_copies.prf ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\features\testcase_targets.prf ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\features\exceptions.prf ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\features\yacc.prf ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\features\lex.prf CameraViewer.pro ..\..\..\203_qt_6\6.2.4\msvc2019_64\lib\Qt6Widgets.prl ..\..\..\203_qt_6\6.2.4\msvc2019_64\lib\Qt6Gui.prl ..\..\..\203_qt_6\6.2.4\msvc2019_64\lib\Qt6Core.prl    ..\..\..\203_qt_6\6.2.4\msvc2019_64\mkspecs\features\data\dummy.cpp Helper.h ImageWriter.h camerabutton.h camerainfo.h cameramanager.h cameraobserver.h frameobserver.h imageprocessthread.h mainwindow.h memcpy_threaded.h previewlabel.h  Helper.cpp ImageWriter.cpp camerabutton.cpp camerainfo.cpp cameramanager.cpp cameraobserver.cpp frameobserver.cpp imageprocessthread.cpp main.cpp mainwindow.cpp previewlabel.cpp mainwindow.ui    
 
 clean: compiler_clean 
-	-$(DEL_FILE) release\camerabutton.obj release\camerainfo.obj release\cameramanager.obj release\cameraobserver.obj release\frameobserver.obj release\imageprocessthread.obj release\main.obj release\mainwindow.obj release\previewlabel.obj release\moc_camerabutton.obj release\moc_cameramanager.obj release\moc_cameraobserver.obj release\moc_frameobserver.obj release\moc_imageprocessthread.obj release\moc_mainwindow.obj release\moc_previewlabel.obj
+	-$(DEL_FILE) release\Helper.obj release\ImageWriter.obj release\camerabutton.obj release\camerainfo.obj release\cameramanager.obj release\cameraobserver.obj release\frameobserver.obj release\imageprocessthread.obj release\main.obj release\mainwindow.obj release\previewlabel.obj release\moc_camerabutton.obj release\moc_cameramanager.obj release\moc_cameraobserver.obj release\moc_frameobserver.obj release\moc_imageprocessthread.obj release\moc_mainwindow.obj release\moc_previewlabel.obj
 
 distclean: clean 
 	-$(DEL_FILE) .qmake.stash
@@ -795,6 +804,18 @@ release\moc_imageprocessthread.cpp: imageprocessthread.h \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtGui\qpolygon.h \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtGui\qregion.h \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qline.h \
+		Helper.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\QString \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\QSharedPointer \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\QMutex \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qmutex.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\QMutexLocker \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\QWaitCondition \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qwaitcondition.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\QDeadlineTimer \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\QVector \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qvector.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\QList \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\QMap \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qmap.h \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qshareddata_impl.h \
@@ -967,6 +988,19 @@ release\moc_mainwindow.cpp: mainwindow.h \
 		VimbaCPP\Include\VimbaSystem.hpp \
 		camerainfo.h \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\QStringList \
+		Helper.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\QString \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\QSharedPointer \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\QMutex \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qmutex.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\QMutexLocker \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\QWaitCondition \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qwaitcondition.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\QDeadlineTimer \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qdeadlinetimer.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qelapsedtimer.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\QVector \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qvector.h \
 		release\moc_predefs.h \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\bin\moc.exe
 	D:\203_qt_6\6.2.4\msvc2019_64\bin\moc.exe $(DEFINES) --compiler-flavor=msvc --include D:/204_qt_proj/proj8/CameraViewer/release/moc_predefs.h -ID:/203_qt_6/6.2.4/msvc2019_64/mkspecs/win32-msvc -ID:/204_qt_proj/proj8/CameraViewer -ID:/204_qt_proj/proj8/CameraViewer/VimbaCPP -ID:/203_qt_6/6.2.4/msvc2019_64/include -ID:/203_qt_6/6.2.4/msvc2019_64/include/QtWidgets -ID:/203_qt_6/6.2.4/msvc2019_64/include/QtGui -ID:/203_qt_6/6.2.4/msvc2019_64/include/QtCore -IG:\Vs\VC\Tools\MSVC\14.33.31629\include -IG:\Vs\VC\Tools\MSVC\14.33.31629\ATLMFC\include -IG:\Vs\VC\Auxiliary\VS\include -I"D:\Windows Kits\10\include\10.0.19041.0\ucrt" -I"D:\Windows Kits\10\\include\10.0.19041.0\\um" -I"D:\Windows Kits\10\\include\10.0.19041.0\\shared" -I"D:\Windows Kits\10\\include\10.0.19041.0\\winrt" -I"D:\Windows Kits\10\\include\10.0.19041.0\\cppwinrt" -I"C:\Program Files (x86)\Windows Kits\NETFXSDK\4.6.1\include\um" mainwindow.h -o release\moc_mainwindow.cpp
@@ -1104,6 +1138,8 @@ release\moc_previewlabel.cpp: previewlabel.h \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtGui\qtextdocument.h \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtWidgets\QDialog \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtWidgets\qdialog.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtWidgets\QStatusBar \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtWidgets\qstatusbar.h \
 		release\moc_predefs.h \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\bin\moc.exe
 	D:\203_qt_6\6.2.4\msvc2019_64\bin\moc.exe $(DEFINES) --compiler-flavor=msvc --include D:/204_qt_proj/proj8/CameraViewer/release/moc_predefs.h -ID:/203_qt_6/6.2.4/msvc2019_64/mkspecs/win32-msvc -ID:/204_qt_proj/proj8/CameraViewer -ID:/204_qt_proj/proj8/CameraViewer/VimbaCPP -ID:/203_qt_6/6.2.4/msvc2019_64/include -ID:/203_qt_6/6.2.4/msvc2019_64/include/QtWidgets -ID:/203_qt_6/6.2.4/msvc2019_64/include/QtGui -ID:/203_qt_6/6.2.4/msvc2019_64/include/QtCore -IG:\Vs\VC\Tools\MSVC\14.33.31629\include -IG:\Vs\VC\Tools\MSVC\14.33.31629\ATLMFC\include -IG:\Vs\VC\Auxiliary\VS\include -I"D:\Windows Kits\10\include\10.0.19041.0\ucrt" -I"D:\Windows Kits\10\\include\10.0.19041.0\\um" -I"D:\Windows Kits\10\\include\10.0.19041.0\\shared" -I"D:\Windows Kits\10\\include\10.0.19041.0\\winrt" -I"D:\Windows Kits\10\\include\10.0.19041.0\\cppwinrt" -I"C:\Program Files (x86)\Windows Kits\NETFXSDK\4.6.1\include\um" previewlabel.h -o release\moc_previewlabel.cpp
@@ -1379,7 +1415,9 @@ ui_mainwindow.h: mainwindow.ui \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtGui\qpicture.h \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtGui\qtextdocument.h \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtWidgets\QDialog \
-		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtWidgets\qdialog.h
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtWidgets\qdialog.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtWidgets\QStatusBar \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtWidgets\qstatusbar.h
 	D:\203_qt_6\6.2.4\msvc2019_64\bin\uic.exe mainwindow.ui -o ui_mainwindow.h
 
 compiler_yacc_decl_make_all:
@@ -1393,6 +1431,262 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean compiler_ui
 
 
 ####### Compile
+
+release\Helper.obj: Helper.cpp Helper.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\QString \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qstring.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qchar.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qglobal.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qconfig-bootstrapped.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qconfig.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qtcore-config.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qsystemdetection.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qprocessordetection.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qcompilerdetection.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qtypeinfo.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qcontainerfwd.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qsysinfo.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qlogging.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qflags.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qatomic.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qbasicatomic.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qatomic_bootstrap.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qgenericatomic.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qatomic_cxx11.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qglobalstatic.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qnumeric.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qversiontagging.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qstringview.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qbytearray.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qrefcount.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qnamespace.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qtmetamacros.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qarraydata.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qpair.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qarraydatapointer.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qarraydataops.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qcontainertools_impl.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qbytearrayalgorithms.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qbytearrayview.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qstringliteral.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qstringalgorithms.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qanystringview.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qutf8stringview.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qstringtokenizer.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qstringbuilder.h \
+		VimbaCPP\Include\VimbaCPPCommon.h \
+		VimbaC\Include\VmbCommonTypes.h \
+		VimbaCPP\Include\Frame.h \
+		VimbaC\Include\VimbaC.h \
+		VimbaCPP\Include\SharedPointerDefines.h \
+		VimbaCPP\Include\SharedPointer.h \
+		VimbaCPP\Include\Mutex.h \
+		VimbaCPP\Include\SharedPointer_impl.h \
+		VimbaCPP\Include\UserSharedPointerDefines.h \
+		VimbaCPP\Include\IFrameObserver.h \
+		VimbaCPP\Include\AncillaryData.h \
+		VimbaCPP\Include\FeatureContainer.h \
+		VimbaCPP\Include\BasicLockable.h \
+		VimbaCPP\Include\Feature.h \
+		VimbaCPP\Include\IFeatureObserver.h \
+		VimbaCPP\Include\EnumEntry.h \
+		VimbaCPP\Include\EnumEntry.hpp \
+		VimbaCPP\Include\Feature.hpp \
+		VimbaCPP\Include\FeatureContainer.hpp \
+		VimbaCPP\Include\Camera.h \
+		VimbaCPP\Include\IRegisterDevice.h \
+		VimbaCPP\Include\Camera.hpp \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\QSharedPointer \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qsharedpointer.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qshareddata.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qhashfunctions.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qsharedpointer_impl.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qobject.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qobjectdefs.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qobjectdefs_impl.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qlist.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qiterator.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qbytearraylist.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qstringlist.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qalgorithms.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qstringmatcher.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qcoreevent.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qscopedpointer.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qmetatype.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qcompare.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qvarlengtharray.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qscopeguard.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qdatastream.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qiodevicebase.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qiterable.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qmetacontainer.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qcontainerinfo.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qtaggedpointer.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qmath.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qobject_impl.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qbindingstorage.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\QMutex \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qmutex.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\QMutexLocker \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\QWaitCondition \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qwaitcondition.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\QDeadlineTimer \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qdeadlinetimer.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qelapsedtimer.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\QVector \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qvector.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\QList \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\QtEndian \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qendian.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qfloat16.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\QStringList \
+		memcpy_threaded.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\QFuture \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qfuture.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qfutureinterface.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qresultstore.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qmap.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qshareddata_impl.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qdebug.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qhash.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qtextstream.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qstringconverter.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qset.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qcontiguouscache.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qfuture_impl.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qthreadpool.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qthread.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qrunnable.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qexception.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qpointer.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qpromise.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\QFutureSynchronizer \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qfuturesynchronizer.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtConcurrent\qtconcurrentrun.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtConcurrent\qtconcurrentcompilertest.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtConcurrent\qtconcurrent_global.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtConcurrent\qtconcurrentrunbase.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtConcurrent\qtconcurrentstoredfunctioncall.h
+
+release\ImageWriter.obj: ImageWriter.cpp ImageWriter.h \
+		Helper.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\QString \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qstring.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qchar.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qglobal.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qconfig-bootstrapped.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qconfig.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qtcore-config.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qsystemdetection.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qprocessordetection.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qcompilerdetection.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qtypeinfo.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qcontainerfwd.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qsysinfo.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qlogging.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qflags.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qatomic.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qbasicatomic.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qatomic_bootstrap.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qgenericatomic.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qatomic_cxx11.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qglobalstatic.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qnumeric.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qversiontagging.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qstringview.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qbytearray.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qrefcount.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qnamespace.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qtmetamacros.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qarraydata.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qpair.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qarraydatapointer.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qarraydataops.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qcontainertools_impl.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qbytearrayalgorithms.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qbytearrayview.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qstringliteral.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qstringalgorithms.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qanystringview.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qutf8stringview.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qstringtokenizer.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qstringbuilder.h \
+		VimbaCPP\Include\VimbaCPPCommon.h \
+		VimbaC\Include\VmbCommonTypes.h \
+		VimbaCPP\Include\Frame.h \
+		VimbaC\Include\VimbaC.h \
+		VimbaCPP\Include\SharedPointerDefines.h \
+		VimbaCPP\Include\SharedPointer.h \
+		VimbaCPP\Include\Mutex.h \
+		VimbaCPP\Include\SharedPointer_impl.h \
+		VimbaCPP\Include\UserSharedPointerDefines.h \
+		VimbaCPP\Include\IFrameObserver.h \
+		VimbaCPP\Include\AncillaryData.h \
+		VimbaCPP\Include\FeatureContainer.h \
+		VimbaCPP\Include\BasicLockable.h \
+		VimbaCPP\Include\Feature.h \
+		VimbaCPP\Include\IFeatureObserver.h \
+		VimbaCPP\Include\EnumEntry.h \
+		VimbaCPP\Include\EnumEntry.hpp \
+		VimbaCPP\Include\Feature.hpp \
+		VimbaCPP\Include\FeatureContainer.hpp \
+		VimbaCPP\Include\Camera.h \
+		VimbaCPP\Include\IRegisterDevice.h \
+		VimbaCPP\Include\Camera.hpp \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\QSharedPointer \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qsharedpointer.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qshareddata.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qhashfunctions.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qsharedpointer_impl.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qobject.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qobjectdefs.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qobjectdefs_impl.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qlist.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qiterator.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qbytearraylist.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qstringlist.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qalgorithms.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qstringmatcher.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qcoreevent.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qscopedpointer.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qmetatype.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qcompare.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qvarlengtharray.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qscopeguard.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qdatastream.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qiodevicebase.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qiterable.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qmetacontainer.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qcontainerinfo.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qtaggedpointer.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qmath.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qobject_impl.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qbindingstorage.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\QMutex \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qmutex.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\QMutexLocker \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\QWaitCondition \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qwaitcondition.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\QDeadlineTimer \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qdeadlinetimer.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qelapsedtimer.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\QVector \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qvector.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\QList \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\QLibrary \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qlibrary.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\QDebug \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qdebug.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qhash.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qmap.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qshareddata_impl.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qtextstream.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qstringconverter.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qset.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qcontiguouscache.h \
+		VimbaImageTransform\Include\VmbTransformTypes.h \
+		VimbaImageTransform\Include\VmbCommonTypes.h \
+		VimbaImageTransform\Include\VmbTransform.h
 
 release\camerabutton.obj: camerabutton.cpp camerabutton.h \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtWidgets\qwidget.h \
@@ -1754,6 +2048,18 @@ release\cameramanager.obj: cameramanager.cpp cameramanager.h \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qthread.h \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qdeadlinetimer.h \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qelapsedtimer.h \
+		Helper.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\QString \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\QSharedPointer \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\QMutex \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qmutex.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\QMutexLocker \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\QWaitCondition \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qwaitcondition.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\QDeadlineTimer \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\QVector \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qvector.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\QList \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qdebug.h \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qhash.h \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qtextstream.h \
@@ -2101,6 +2407,18 @@ release\imageprocessthread.obj: imageprocessthread.cpp imageprocessthread.h \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtGui\qpolygon.h \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtGui\qregion.h \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qline.h \
+		Helper.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\QString \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\QSharedPointer \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\QMutex \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qmutex.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\QMutexLocker \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\QWaitCondition \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qwaitcondition.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\QDeadlineTimer \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\QVector \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qvector.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\QList \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\QMap \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qmap.h \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qshareddata_impl.h \
@@ -2280,6 +2598,19 @@ release\main.obj: main.cpp mainwindow.h \
 		VimbaCPP\Include\VimbaSystem.hpp \
 		camerainfo.h \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\QStringList \
+		Helper.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\QString \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\QSharedPointer \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\QMutex \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qmutex.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\QMutexLocker \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\QWaitCondition \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qwaitcondition.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\QDeadlineTimer \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qdeadlinetimer.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qelapsedtimer.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\QVector \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qvector.h \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtWidgets\QApplication \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtWidgets\qapplication.h \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qcoreapplication.h \
@@ -2287,13 +2618,10 @@ release\main.obj: main.cpp mainwindow.h \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qcoreapplication_platform.h \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qfuture.h \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qfutureinterface.h \
-		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qmutex.h \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qresultstore.h \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qfuture_impl.h \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qthreadpool.h \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qthread.h \
-		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qdeadlinetimer.h \
-		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qelapsedtimer.h \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qrunnable.h \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qexception.h \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qpromise.h \
@@ -2467,6 +2795,19 @@ release\mainwindow.obj: mainwindow.cpp mainwindow.h \
 		VimbaCPP\Include\VimbaSystem.hpp \
 		camerainfo.h \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\QStringList \
+		Helper.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\QString \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\QSharedPointer \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\QMutex \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qmutex.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\QMutexLocker \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\QWaitCondition \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qwaitcondition.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\QDeadlineTimer \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qdeadlinetimer.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qelapsedtimer.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\QVector \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qvector.h \
 		camerabutton.h \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtWidgets\QPushButton \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtWidgets\qpushbutton.h \
@@ -2482,6 +2823,8 @@ release\mainwindow.obj: mainwindow.cpp mainwindow.h \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtGui\qtextdocument.h \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtWidgets\QDialog \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtWidgets\qdialog.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtWidgets\QStatusBar \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtWidgets\qstatusbar.h \
 		ui_mainwindow.h \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\QVariant \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtGui\QAction \
@@ -2493,13 +2836,10 @@ release\mainwindow.obj: mainwindow.cpp mainwindow.h \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qcoreapplication_platform.h \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qfuture.h \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qfutureinterface.h \
-		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qmutex.h \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qresultstore.h \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qfuture_impl.h \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qthreadpool.h \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qthread.h \
-		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qdeadlinetimer.h \
-		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qelapsedtimer.h \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qrunnable.h \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qexception.h \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtCore\qpromise.h \
@@ -2538,8 +2878,6 @@ release\mainwindow.obj: mainwindow.cpp mainwindow.h \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtWidgets\QMenuBar \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtWidgets\qmenubar.h \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtWidgets\QSlider \
-		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtWidgets\QStatusBar \
-		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtWidgets\qstatusbar.h \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtWidgets\QVBoxLayout \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtWidgets\QWidget \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtWidgets\QFileDialog \
@@ -2690,6 +3028,8 @@ release\previewlabel.obj: previewlabel.cpp previewlabel.h \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtGui\qtextdocument.h \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtWidgets\QDialog \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtWidgets\qdialog.h \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtWidgets\QStatusBar \
+		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtWidgets\qstatusbar.h \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtGui\QPaintEvent \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtGui\QPainter \
 		..\..\..\203_qt_6\6.2.4\msvc2019_64\include\QtGui\qpainter.h \

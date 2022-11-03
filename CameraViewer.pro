@@ -16,6 +16,8 @@ LIBS+=./VimbaImageTransform/Lib\Win64/VimbaImageTransform.lib
 CONFIG+=console
 
 SOURCES += \
+    Helper.cpp \
+    ImageWriter.cpp \
     camerabutton.cpp \
     camerainfo.cpp \
     cameramanager.cpp \
@@ -27,6 +29,8 @@ SOURCES += \
     previewlabel.cpp
 
 HEADERS += \
+    Helper.h \
+    ImageWriter.h \
     camerabutton.h \
     camerainfo.h \
     cameramanager.h \
@@ -34,6 +38,7 @@ HEADERS += \
     frameobserver.h \
     imageprocessthread.h \
     mainwindow.h \
+    memcpy_threaded.h \
     previewlabel.h
 
 FORMS += \

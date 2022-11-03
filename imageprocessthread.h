@@ -9,6 +9,7 @@
 #include"Include/VimbaCPP.h"
 #include "cameraobserver.h"
 #include "qpixmap.h"
+#include "Helper.h"
 #include<QMap>
 class FrameObserver;
 using namespace AVT::VmbAPI;
@@ -89,6 +90,7 @@ public:
 
 
         QImage  m_Image;
+        tFrameInfo m_FullBitFrame;
         bool    m_connected_state;
         int id;
 private:

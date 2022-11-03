@@ -108,6 +108,33 @@ VmbErrorType imageProcessThread::ConnectCamera( const std::string &rStrCameraID 
     return res;
 }
 
+QImage::Format convertPixelFormat(VmbPixelFormatType srcFormat){
+    QImage::Format temp;
+    switch(srcFormat){
+        case VmbPixelFormatMono8:
+        case VmbPixelFormatMono12:
+            temp = QImage::Format_Grayscale8;
+            break;
+        case VmbPixelFormatMono16:
+            temp = QImage::Format_Grayscale16;
+            break;
+        default:
+            temp = QImage::Format_RGB888;
+    }
+    return temp;
+}
+
+bool isFullBitsFormat(VmbPixelFormatType srcFormat){
+    switch(srcFormat){
+        case VmbPixelFormatMono16:
+        case VmbPixelFormatMono12:
+            return true;
+        default:
+            return false;
+    }
+    return false;
+}
+
 VmbErrorType imageProcessThread::StartContinuousImageAcquisition()
 {
     VmbErrorType res;
@@ -146,6 +173,7 @@ VmbErrorType imageProcessThread::StartContinuousImageAcquisition()
             res = SetValueIntMod2( m_pCamera, "Height", m_nHeight );
             if( VmbErrorSuccess == res )
             {
+                qDebug()<<"m_nWidth: "<<m_nWidth<<",  m_nHeight: "<<m_nHeight; 
                 // Store currently selected image format
                 FeaturePtr pFormatFeature;
                 res = SP_ACCESS( m_pCamera )->GetFeatureByName( "PixelFormat", pFormatFeature );
@@ -163,7 +191,7 @@ VmbErrorType imageProcessThread::StartContinuousImageAcquisition()
                         connect(m_pFrameObserver.get(),&FrameObserver::FrameReceivedSignal,
                                 this,&imageProcessThread::recvImage);
                         m_bIsStreaming=true;
-                        m_Image=QImage(GetWidth(),GetHeight(),QImage::Format_RGB888);
+                        m_Image=QImage(GetWidth(),GetHeight(),QImage::Format_RGB32);
                     }
                 }
             }
@@ -176,28 +204,24 @@ VmbErrorType imageProcessThread::StartContinuousImageAcquisition()
     }
     else
     {
-        qDebug()<<"connect unsucess,error code:"<<res;
+        qDebug()<<"connect unsucess";
     }
-    m_Image = QImage(GetWidth(), GetHeight(), QImage::Format_RGB888 );
-    VimbaSystem&        sys         = VimbaSystem::GetInstance();           // Get a reference to the VimbaSystem singleton
     // Print out version of Vimba
     VmbErrorType        err          ;                 // Initialize the Vimba API
     FeaturePtrVector    features;                                           // A vector of std::shared_ptr<AVT::VmbAPI::Feature> objects
     err = m_pCamera->GetFeatures( features );
 
     QMap<QString,FeaturePtr> tmp;
-
     for(auto& feature:features)
     {
         std::string name;
         feature->GetName(name);
         QString r=QString::fromStdString(name);
-
         tmp.insert(r,feature);
     }
 
     emit sendFeatures(tmp);
-    return res;
+    return err;
 }
 
 VmbErrorType imageProcessThread::StopContinuousImageAcquisition()
@@ -296,7 +320,7 @@ VmbErrorType imageProcessThread::CopyToImage( VmbUchar_t *pInBuffer, VmbPixelFor
     SourceImage.Size    = sizeof( SourceImage );
     DestImage.Size      = sizeof( DestImage );
 
-    Result = VmbSetImageInfoFromPixelFormat( ePixelFormat, nWidth, nHeight, & SourceImage );
+    Result = VmbSetImageInfoFromPixelFormat( ePixelFormat, nWidth, nHeight, &SourceImage );
     if( VmbErrorSuccess != Result )
     {
         qDebug( "Could not set source image info", static_cast<VmbErrorType>( Result ) );
@@ -317,6 +341,9 @@ VmbErrorType imageProcessThread::CopyToImage( VmbUchar_t *pInBuffer, VmbPixelFor
         }
         OutputFormat = "RGB24";
         break;
+    case QImage::Format_RGB32:
+        OutputFormat = "BGRA32";
+        break;
     }
     Result = VmbSetImageInfoFromString( OutputFormat.toStdString().c_str(), OutputFormat.length(),nWidth,nHeight, &DestImage );
     if( VmbErrorSuccess != Result )
@@ -326,25 +353,8 @@ VmbErrorType imageProcessThread::CopyToImage( VmbUchar_t *pInBuffer, VmbPixelFor
     }
     SourceImage.Data    = pInBuffer;
     DestImage.Data      = pOutImage.bits();
-    // do color processing?
-    if( NULL != Matrix )
-    {
-        VmbTransformInfo TransformParameter;
-        Result = VmbSetColorCorrectionMatrix3x3( Matrix, &TransformParameter );
-        if( VmbErrorSuccess == Result )
-        {
-            Result = VmbImageTransform( &SourceImage, &DestImage, &TransformParameter,1 );
-        }
-        else
-        {
-            qDebug( "could not set matrix t o transform info ", static_cast<VmbErrorType>( Result ) );
-            return static_cast<VmbErrorType>( Result );
-        }
-    }
-    else
-    {
-        Result = VmbImageTransform( &SourceImage, &DestImage,NULL,0 );
-    }
+
+    Result = VmbImageTransform( &SourceImage, &DestImage,NULL,0 );
     if( VmbErrorSuccess != Result )
     {
         qDebug( "could not transform image", static_cast<VmbErrorType>( Result ) );
@@ -366,6 +376,7 @@ void imageProcessThread::recvImage(int status)
                return;
            }
            // See if it is not corrupt
+           VmbPixelFormatType ePixelFormat = GetPixelFormat();
            if( VmbFrameStatusComplete == status )
            {
                VmbUchar_t *pBuffer;
@@ -376,27 +387,10 @@ void imageProcessThread::recvImage(int status)
                    err = SP_ACCESS( pFrame )->GetImageSize( nSize );
                    if( VmbErrorSuccess == err )
                    {
-                       VmbPixelFormatType ePixelFormat = GetPixelFormat();
                        if( ! m_Image.isNull() )
                        {
-                           // Copy it
-                           // We need that because Qt might repaint the view after we have released the frame already
-                           if(false)
-                           {
-                               static const VmbFloat_t Matrix[] = {    8.0f, 0.1f, 0.1f, // this matrix just makes a quick color to mono conversion
-                                                                       0.1f, 0.8f, 0.1f,
-                                                                       0.0f, 0.0f, 1.0f };
-                               if( VmbErrorSuccess != CopyToImage( pBuffer,ePixelFormat, m_Image, Matrix ) )
-                               {
-                                   qDebug("image copying failed");
-                               }
-                           }
-                           else
-                           {
-                               CopyToImage( pBuffer,ePixelFormat, m_Image );
-                           }
-
-                           // Display it
+                          CopyToImage( pBuffer,ePixelFormat, m_Image );
+                          // qDebug()<<QString("imageBits.format() : %1").arg(m_Image.format());
                           emit pixmapReady(QPixmap::fromImage(m_Image));
                        }
                    }
@@ -404,11 +398,11 @@ void imageProcessThread::recvImage(int status)
            }
            else
            {
-               // If we receive an incomplete image we do nothing but logging
                qDebug()<<"Failure in receiving image: "<<status;
            }
-
-           // And queue it to continue streaming
-          QueueFrame( pFrame );
+           if (isFullBitsFormat(ePixelFormat)) {
+              m_FullBitFrame = tFrameInfo(pFrame, false);
+           }
+           QueueFrame( pFrame );
        }
 }

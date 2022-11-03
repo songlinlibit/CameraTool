@@ -2,8 +2,9 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include"Include/VimbaCPP.h"
-#include<camerainfo.h>
+#include "Include/VimbaCPP.h"
+#include <camerainfo.h>
+#include "Helper.h"
 using namespace AVT::VmbAPI;
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -50,7 +51,7 @@ public:
 
                    CameraInfo::CameraInfoVector                m_CameraInfos;
 
-                 signals:
+signals:
                   void setExposure(int code,double abs);
                   void setFrameRate(int code,double abs);
                   void setBPS(int code, double abs);
@@ -119,7 +120,7 @@ private:
 
     QString ip_1;
     QString ip_2;
-
+    QVector<QRgb>                   m_ColorTable;
     QString                         m_SelectedCamera;
     bool                            m_bIsCurrentModelChecked;
     bool                            m_bIsOpenByRightMouseClick;
