@@ -128,6 +128,7 @@ bool isFullBitsFormat(VmbPixelFormatType srcFormat){
     switch(srcFormat){
         case VmbPixelFormatMono16:
         case VmbPixelFormatMono12:
+        case VmbPixelFormatMono8:
             return true;
         default:
             return false;
@@ -402,6 +403,8 @@ void imageProcessThread::recvImage(int status)
            }
            if (isFullBitsFormat(ePixelFormat)) {
               m_FullBitFrame = tFrameInfo(pFrame, false);
+              emit fullBitPixmapReady(m_FullBitFrame);
+
            }
            QueueFrame( pFrame );
        }

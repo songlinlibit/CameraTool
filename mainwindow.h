@@ -3,8 +3,9 @@
 
 #include <QMainWindow>
 #include "Include/VimbaCPP.h"
-#include <camerainfo.h>
+#include "camerainfo.h"
 #include "Helper.h"
+#include "ImageWriter.h"
 using namespace AVT::VmbAPI;
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -20,6 +21,8 @@ public:
     ~MainWindow();
 
     void setCameraSavePath();
+    void saveFullBitPixelMapOne(tFrameInfo);
+    void saveFullBitPixelMapTwo(tFrameInfo);
 
     void initCameraInfos();
 
@@ -126,9 +129,10 @@ private:
     bool                            m_bIsOpenByRightMouseClick;
     bool                            m_bIsInitialized;
 
-     cameraManager* manager=nullptr;
-     QThread* managerThread=nullptr;
+    cameraManager* manager=nullptr;
+    QThread* managerThread=nullptr;
 
-
+    tFrameInfo m_FullBitPixelMapOne;
+    tFrameInfo m_FullBitPixelMapTwo;
 };
 #endif // MAINWINDOW_H

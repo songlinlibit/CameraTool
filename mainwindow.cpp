@@ -11,6 +11,9 @@
 #include <QInputDialog>
 #include <QMessageBox>
 
+#include <thread>
+#include <future>
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -43,9 +46,10 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->pushButton,&CameraButton::closeCamera,this->manager,&cameraManager::disConnectFromCameraOne);
     connect(ui->pushButton_2,&CameraButton::closeCamera,this->manager,&cameraManager::disConnectFromCameraTwo);
 
-    //connect slots here...
     connect(manager,&cameraManager::sendImageToChannelOne,ui->preview_2,&previewLabel::accpetPixmap);
     connect(manager,&cameraManager::sendImageToChannelTwo,ui->preview_1,&previewLabel::accpetPixmap);
+    connect(manager,&cameraManager::sentFullBitPixelMapOne,this,&MainWindow::saveFullBitPixelMapOne);
+    connect(manager,&cameraManager::sentFullBitPixelMapTwo,this,&MainWindow::saveFullBitPixelMapTwo);
     connect(manager,&cameraManager::updateExposure,this,&MainWindow::on_updateExposure);
     connect(manager,&cameraManager::sendCameraList,this,[=](QVector<QString> names){
         ui->comboBox_3->clear();
@@ -110,6 +114,16 @@ void MainWindow::setCameraSavePath()
     }
 }
 
+void MainWindow::saveFullBitPixelMapOne(tFrameInfo tempFullBitPixel){
+    m_FullBitPixelMapOne = tempFullBitPixel;
+    return;
+}
+
+void MainWindow::saveFullBitPixelMapTwo(tFrameInfo tempFullBitPixel){
+    m_FullBitPixelMapTwo = tempFullBitPixel;
+    return;
+}
+
 void MainWindow::initCameraInfos()
 {
     auto cameras=manager->getCameraList();
@@ -118,13 +132,8 @@ void MainWindow::initCameraInfos()
 
 void MainWindow::on_pushButton_3_clicked()
 {
-    // if(!this->manager->cameraOneRunning)
-    // {
-    //     return;
-    // }
     // make a copy of the images before save-as dialog appears (image can change during time dialog open)
     QImage      image = (ui->preview_2->frame.toImage());
-    // tFrameInfo  imageFullBitdepth = m_FullBitDepthImage;
     QString     fileExtension = QString(".jpeg;;.jpg;;.png;;.tif;;.tiff");
     bool        isImageAvailable = true;
 
@@ -134,22 +143,6 @@ void MainWindow::on_pushButton_3_clicked()
     }
     else
     {
-        /* Get all inputformats */
-        // unsigned int nFilterSize = QImageReader::supportedImageFormats().count();
-        // for (int i = nFilterSize-1; i >= 0; i--)
-        // {
-        //     fileExtension += "."; /* Insert wildcard */
-        //     fileExtension += QString(QImageReader::supportedImageFormats().at(i)).toLower(); /* Insert the format */
-        //     if(0 != i)
-        //         fileExtension += ";;"; /* Insert a space */
-        // }
-
-        //  if( NULL != m_saveFileDialog )
-        //  {
-        //      delete m_saveFileDialog;
-        //      m_saveFileDialog = NULL;
-        //  }
-
         auto m_saveFileDialog = new QFileDialog ( this, tr("Save Image"), QString(), fileExtension );
         qDebug()<<"extension : "<<fileExtension;
         m_saveFileDialog->setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint & ~Qt::WindowMinimizeButtonHint & ~Qt::WindowMaximizeButtonHint);
@@ -170,26 +163,24 @@ void MainWindow::on_pushButton_3_clicked()
                 }
 
                 bool saved = false;
+                std::future<bool> result;
 
                 // save image using LibTiff library for 16 Bit
-                // if( m_LibTiffAvailable && ActionAllow16BitTiffSaving->isChecked() && m_SelectedExtension.contains(".tif") && isSupportedPixelFormat())
-                // {
-                //     saved = m_TiffWriter.WriteTiff(imageFullBitdepth, fileName.toAscii());
-                // }
+                if(m_SelectedExtension.contains(".tif"))
+                {
+                    result = std::async(std::launch::async, [](tFrameInfo temp, QString file){
+                        ImageWriter TiffWriter;
+                        return TiffWriter.WriteTiff(temp, file.toUtf8().constData());
+                    }, m_FullBitPixelMapOne, fileName);
+                }
                 // use default QImage save functionality
-                // else
-                // {
-                    // if( true == CanReduceBpp() )
-                    // {
-                    //     saved = ReduceBpp( image ).save( fileName );
-                    // }
-                    // else
-                    // {
-                        saved = image.convertToFormat(QImage::Format_Indexed8, m_ColorTable).save( fileName );
-                    // }
-                // }
+                else
+                {
 
-                if ( true == saved )
+                    saved = image.convertToFormat(QImage::Format_Indexed8, m_ColorTable).save( fileName );
+                }
+
+                if ( true == saved || result.get())
                 {
                     QMessageBox::information( this, tr( "Vimba Viewer" ), tr( "Image: " ) + fileName + tr( " saved successfully" ));
                 }
@@ -197,44 +188,74 @@ void MainWindow::on_pushButton_3_clicked()
                 {
                     QMessageBox::warning( this, tr( "Vimba Viewer" ), tr( "Error saving image" ));
                 }
-
             }
         }
         delete m_saveFileDialog;
     }
-
-    // bool saved = false;
-    // QImage tmp=(ui->preview_2->frame.toImage());
-    // QString savePath=filePath_1;
-    // QString time=QDateTime::currentDateTime().toString("mm-hh-dd-MM");
-    // //QString time=QDateTime::currentDateTime().toString();
-    // time.replace(" ","");
-    // savePath.append("/"+time+".png");
-    // qDebug()<<"savePath:  "<<savePath;
-    // saved = tmp.save(savePath);
-    // if ( true == saved )
-    // {
-    //     QMessageBox::information( this, tr( "提示" ), tr( "Image: " ) + savePath + tr( " saved successfully" ));
-    // }
-    // else
-    // {
-    //     QMessageBox::warning( this, tr( "错误" ), tr( "Error saving image" ));
-    // }
 }
 
 
 void MainWindow::on_pushButton_4_clicked()
 {
-    if(!this->manager->cameraTwoRunning)
+    // make a copy of the images before save-as dialog appears (image can change during time dialog open)
+    QImage      image = (ui->preview_1->frame.toImage());
+    QString     fileExtension = QString(".jpeg;;.jpg;;.png;;.tif;;.tiff");
+    bool        isImageAvailable = true;
+
+    if ( image.isNull() )
     {
-        return;
+        isImageAvailable = false;
     }
-    QImage tmp=(ui->preview_1->frame.toImage());
-    QString savePath=filePath_2;
-    QString time=QDateTime::currentDateTime().toString("MM-dd-hh-mm");
-    // time.replace(" ","");
-    savePath.append("_"+time+".png");
-    tmp.save(savePath);
+    else
+    {
+        auto m_saveFileDialog = new QFileDialog ( this, tr("Save Image"), QString(), fileExtension );
+        qDebug()<<"extension : "<<fileExtension;
+        m_saveFileDialog->setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint & ~Qt::WindowMinimizeButtonHint & ~Qt::WindowMaximizeButtonHint);
+        m_saveFileDialog->setAcceptMode(QFileDialog::AcceptSave);
+
+        if(m_saveFileDialog->exec())
+        {   //OK
+           auto m_SelectedExtension = m_saveFileDialog->selectedNameFilter();
+           QStringList files = m_saveFileDialog->selectedFiles();
+
+           if(!files.isEmpty())
+           {
+                QString fileName = files.at(0);
+
+                if(!fileName.endsWith(m_SelectedExtension))
+                {
+                    fileName.append(m_SelectedExtension);
+                }
+
+                bool saved = false;
+                std::future<bool> result;
+
+                // save image using LibTiff library for 16 Bit
+                if(m_SelectedExtension.contains(".tif"))
+                {
+                    result = std::async(std::launch::async, [](tFrameInfo temp, QString file){
+                        ImageWriter TiffWriter;
+                        return TiffWriter.WriteTiff(temp, file.toUtf8().constData());
+                    }, m_FullBitPixelMapTwo, fileName);
+                }
+                // use default QImage save functionality
+                else
+                {
+                    saved = image.convertToFormat(QImage::Format_Indexed8, m_ColorTable).save( fileName );
+                }
+
+                if ( true == saved || result.get())
+                {
+                    QMessageBox::information( this, tr( "Vimba Viewer" ), tr( "Image: " ) + fileName + tr( " saved successfully" ));
+                }
+                else
+                {
+                    QMessageBox::warning( this, tr( "Vimba Viewer" ), tr( "Error saving image" ));
+                }
+            }
+        }
+        delete m_saveFileDialog;
+    }
 }
 
 void MainWindow::on_updateExposure(int code,double current,double lower,double upper)

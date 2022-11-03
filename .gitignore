@@ -3,4 +3,5 @@
 debug/
 defaultBuf/
 release/
-
+Make*
+*dll

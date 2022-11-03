@@ -1,14 +1,14 @@
 ﻿#ifndef CAMERAMANAGER_H
 #define CAMERAMANAGER_H
 
-
-
 #include <QObject>
-#include<QPixmap>
-#include<camerainfo.h>
+#include <QPixmap>
+#include <camerainfo.h>
 #include "Include/SharedPointerDefines.h"
-#include"Include/VimbaCPP.h"
-#include<QMap>
+#include "Include/VimbaCPP.h"
+#include <QMap>
+#include "Helper.h"
+
 using AVT::VmbAPI::FeaturePtr;
 class CameraObserver;
 class imageProcessThread;
@@ -49,14 +49,14 @@ signals:
     void sendCameraList(QVector<QString> list);
     void sendImageToChannelOne(QPixmap);
     void sendImageToChannelTwo(QPixmap);
+    void sentFullBitPixelMapOne(tFrameInfo);
+    void sentFullBitPixelMapTwo(tFrameInfo);
 
     void startOne(std::string);
     void startTwo(std::string);
 
     void updateExposure(int,double,double,double);
     void updateFeatureUI(int code);
-
-
 
  private:
     imageProcessThread* thread1;

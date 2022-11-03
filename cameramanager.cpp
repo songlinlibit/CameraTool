@@ -34,6 +34,8 @@ cameraManager::cameraManager(QObject *parent)
 
     connect(thread1,&imageProcessThread::pixmapReady,this,&cameraManager::sendImageToChannelOne);
     connect(thread2,&imageProcessThread::pixmapReady,this,&cameraManager::sendImageToChannelTwo);
+    connect(thread1,&imageProcessThread::fullBitPixmapReady,this,&cameraManager::sentFullBitPixelMapOne);
+    connect(thread2,&imageProcessThread::fullBitPixmapReady,this,&cameraManager::sentFullBitPixelMapTwo);
 //    connect(this,&cameraManager::startOne,thread1,&imageProcessThread::StartContinuousImageAcquisition);
 //    connect(this,&cameraManager::startTwo,thread2,&imageProcessThread::StartContinuousImageAcquisition);
     connect(this,&cameraManager::startOne,thread1,&imageProcessThread::ConnectCamera);

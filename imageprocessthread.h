@@ -51,23 +51,16 @@ public:
         VmbErrorType        QueueFrame( FramePtr pFrame );
 
         void                ClearFrameQueue();
-
-
         QObject*            GetCameraObserver();
-
-
         QObject*            GetFrameObserver();
-
-
         std::string         ErrorCodeToMessage( VmbErrorType eErr ) const;
-
-
         std::string         GetVersion() const;
         CameraObserver* ob;
         CameraPtr           m_pCamera;
 
   signals:
         void pixmapReady(QPixmap);
+        void fullBitPixmapReady(tFrameInfo);
         void streamStarted();
         void streamStopped();
         void sendFeatures(QMap<QString,FeaturePtr>);
@@ -75,7 +68,6 @@ public:
         // A reference to our Vimba singleton
         VimbaSystem&                m_system;
         // The currently streaming camera
-
         // Every camera has its own frame observer
         AVT::VmbAPI::shared_ptr<FrameObserver>          m_pFrameObserver;
         // Our camera observer
