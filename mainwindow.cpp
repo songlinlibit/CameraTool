@@ -64,6 +64,9 @@ MainWindow::MainWindow(QWidget *parent)
     connect(this,&MainWindow::setFrameRate,manager,&cameraManager::on_adjustFrameRate);
     connect(this,&MainWindow::setBPS,manager,&cameraManager::on_adjustBps);
 
+    connect(ui->lineEdit_2, &QLineEdit::returnPressed, this, &MainWindow::updateExporesureOne);
+    connect(ui->lineEdit, &QLineEdit::returnPressed, this, &MainWindow::updateExporesureTwo);
+
     manager->moveToThread(managerThread);
 
     managerThread->start();
@@ -93,8 +96,7 @@ MainWindow::~MainWindow()
   qDebug()<<"quit signal pushed...";
   managerThread->wait();
   qDebug()<<"wait finished";
-
-    delete ui;
+  delete ui;
 }
 
 
@@ -298,36 +300,29 @@ void MainWindow::on_featuresUI(int code)
     }
 }
 
-
-void MainWindow::on_lineEdit_2_textEdited(const QString &arg1)
-{
-    //Camera1 exposure;
-    ui->horizontalSlider->setSliderPosition(arg1.toInt());
+void MainWindow::updateExporesureOne() {
+    QString s = ui->lineEdit_2->text();
+    ui->horizontalSlider->setSliderPosition(s.toInt());
     bool ok = false;
-    auto value = arg1.toDouble(&ok);
+    auto value = s.toDouble(&ok);
     if(!ok) {
         QMessageBox::information( this, tr( "警告" ), tr( "请输入纯数字" ));
         return;
     }
     emit setExposure(1,value);
-
 }
 
-
-void MainWindow::on_lineEdit_textEdited(const QString &arg1)
-{
-    //Camera2 exposure;
-    ui->horizontalSlider_2->setSliderPosition(arg1.toInt());
+void MainWindow::updateExporesureTwo() {
+    QString s = ui->lineEdit->text();
+    ui->horizontalSlider_2->setSliderPosition(s.toInt());
     bool ok = false;
-    auto value = arg1.toDouble(&ok);
+    auto value = s.toDouble(&ok);
     if(!ok) {
         QMessageBox::information( this, tr( "警告" ), tr( "请输入纯数字" ));
         return;
     }
     emit setExposure(2,value);
-
 }
-
 
 void MainWindow::on_horizontalSlider_sliderMoved(int position)
 {

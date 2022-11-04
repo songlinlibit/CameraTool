@@ -23,6 +23,8 @@ public:
     void setCameraSavePath();
     void saveFullBitPixelMapOne(tFrameInfo);
     void saveFullBitPixelMapTwo(tFrameInfo);
+    void updateExporesureOne();
+    void updateExporesureTwo();
 
     void initCameraInfos();
 
@@ -68,11 +70,6 @@ private slots:
 
                    void on_updateExposure(int code,double current,double lower,double upper);
                    void on_featuresUI(int code);
-
-                   void on_lineEdit_2_textEdited(const QString &arg1);
-
-                   void on_lineEdit_textEdited(const QString &arg1);
-
 
                    void on_horizontalSlider_sliderMoved(int position);
 
